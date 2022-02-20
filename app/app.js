@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const user_routes = require("./routes/user_routes");
 const note_routes = require("./routes/note_routes");
 const folder_routes = require("./routes/folder_routes");
+const {errorLogger, errorResponder, errorSafeResponder} = require("./middlewares/error")
 
 const app = express();
 
@@ -14,5 +15,8 @@ app.use(express.json());
 app.use('/user', user_routes);
 app.use('/note', note_routes);
 app.use('/folder', folder_routes);
+app.use(errorLogger)
+app.use(errorResponder)
+app.use(errorSafeResponder)
 
 module.exports = app;

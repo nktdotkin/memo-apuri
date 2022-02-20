@@ -5,17 +5,17 @@ const auth = require("../middlewares/auth");
 const router = require('express').Router();
 const user = require("../../config/user");
 
-router.get("/list", auth, async (req, res) => {
+router.get("/list", auth, async (req, res, next) => {
     try {
         const notes = await Note.find({createdBy: user.userId(req)});
 
         res.status(200).json(notes);
     } catch (err) {
-        return res.status(500).send(err);
+        next(err);
     }
 });
 
-router.get("/list/:folderId", auth, async (req, res) => {
+router.get("/list/:folderId", auth, async (req, res, next) => {
     try {
         const notes = await Note.find({
             createdBy: user.userId(req),
@@ -24,11 +24,11 @@ router.get("/list/:folderId", auth, async (req, res) => {
 
         res.status(200).json(notes);
     } catch (err) {
-        return res.status(500).send(err);
+        next(err);
     }
 });
 
-router.post("/delete/:noteId", auth, async (req, res) => {
+router.post("/delete/:noteId", auth, async (req, res, next) => {
     try {
         const note = await Note.deleteOne({
             createdBy: user.userId(req),
@@ -37,11 +37,11 @@ router.post("/delete/:noteId", auth, async (req, res) => {
 
         res.status(200).json(note);
     } catch (err) {
-        return res.status(500).send(err);
+        next(err);
     }
 });
 
-router.post("/save", auth, async (req, res) => {
+router.post("/save", auth, async (req, res, next) => {
     try {
         const {title, body, folder} = req.body;
         const validation = validate(req.body);
@@ -59,7 +59,7 @@ router.post("/save", auth, async (req, res) => {
 
         res.status(201).json(note);
     } catch (err) {
-        return res.status(500).send(err);
+        next(err);
     }
 });
 

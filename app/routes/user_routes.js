@@ -4,7 +4,7 @@ const auth = require("../middlewares/auth");
 const router = require('express').Router();
 const jwt = require("jsonwebtoken");
 
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res, next) => {
     try {
         const {name, email, password} = req.body;
         const validation = validate(req.body);
@@ -27,11 +27,11 @@ router.post("/register", async (req, res) => {
 
         res.status(201).json(user);
     } catch (err) {
-        return res.status(500).send(err);
+        next(err);
     }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
     try {
         const {email, password} = req.body;
         const validation = validate(req.body);
@@ -55,7 +55,7 @@ router.post("/login", async (req, res) => {
         
         res.status(400).send("Invalid login or password.");
     } catch (err) {
-        return res.status(500).send(err);
+        next(err);
     }
 });
 

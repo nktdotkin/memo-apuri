@@ -1,5 +1,4 @@
 ﻿const jwt = require("jsonwebtoken");
-const config = process.env;
 
 const verifyToken = (req, res, next) => {
     const token = req.headers["x-access-token"];
@@ -8,7 +7,7 @@ const verifyToken = (req, res, next) => {
         return res.status(403).send("Missing token.");
     }
     try {
-        req.user = jwt.verify(token, config.TOKEN_KEY);
+        req.user = jwt.verify(token, process.env.TOKEN_KEY);
     } catch (err) {
         return res.status(401).send("Invalid token.");
     }
