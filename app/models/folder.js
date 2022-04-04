@@ -17,7 +17,7 @@ const Folder = mongoose.model('Folder', new mongoose.Schema({
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: User
+        ref: 'User'
     },
     createdOn: {
         type: Date,
@@ -29,7 +29,7 @@ const Folder = mongoose.model('Folder', new mongoose.Schema({
     },
     parentFolder: {
         type: Schema.Types.ObjectId,
-        ref: Folder
+        ref: 'Folder'
     },
     isDeleted: {
         type: Boolean,
