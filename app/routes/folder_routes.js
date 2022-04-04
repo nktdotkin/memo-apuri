@@ -1,9 +1,7 @@
 const { Folder, validate } = require('../models/folder');
 const { User } = require("../models/user");
 const { Note } = require("../models/note");
-const auth = require("../middlewares/auth");
-const router = require('express').Router();
-const user = require("../../config/user");
+const { auth, router, user } = require("../services/route_helper");
 
 router.get("/list", auth, async (req, res, next) => {
     try {

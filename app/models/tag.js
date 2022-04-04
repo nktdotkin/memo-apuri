@@ -12,7 +12,9 @@ const Tag = mongoose.model('Tag', new mongoose.Schema({
     },
     color: {
         type: String,
-        default: ""
+        default: "",
+        minlength: 6,
+        maxlength: 6
     },
     createdBy: {
         type: Schema.Types.ObjectId,
@@ -22,7 +24,8 @@ const Tag = mongoose.model('Tag', new mongoose.Schema({
 
 function validateTag(tag) {
     const schema = Joi.object({
-        tag: Joi.string().min(1).required()
+        title: Joi.string().min(1).required(),
+        color: Joi.string().min(6).max(6).required(),
     });
     return schema.validate(tag, { allowUnknown: true });
 }
