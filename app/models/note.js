@@ -1,7 +1,5 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const {User} = require('./user');
-const {Folder} = require('./folder');
 const Schema = require('mongoose').Schema;
 
 const Note = mongoose.model('Note', new mongoose.Schema({
@@ -19,11 +17,11 @@ const Note = mongoose.model('Note', new mongoose.Schema({
     },
     folder: {
         type: Schema.Types.ObjectId,
-        ref: Folder
+        ref: 'Folder'
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: User
+        ref: 'User'
     }
 }));
 
@@ -31,7 +29,7 @@ function validateNote(note) {
     const schema = Joi.object({
         title: Joi.string().min(1).required()
     });
-    return schema.validate(note, {allowUnknown: true});
+    return schema.validate(note, { allowUnknown: true, abortEarly: false });
 }
 
 exports.validate = validateNote;

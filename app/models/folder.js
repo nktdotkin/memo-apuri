@@ -1,7 +1,5 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const { Tag } = require('./tag');
-const { User } = require('./user');
 const Schema = require('mongoose').Schema;
 
 const Folder = mongoose.model('Folder', new mongoose.Schema({
@@ -41,7 +39,7 @@ const Folder = mongoose.model('Folder', new mongoose.Schema({
     },
     tags: [{
         type: Schema.Types.ObjectId,
-        ref: Tag
+        ref: 'Tag'
     }],
     notesCount: {
         type: String,
@@ -49,7 +47,7 @@ const Folder = mongoose.model('Folder', new mongoose.Schema({
     },
     access: [{
         type: Schema.Types.ObjectId,
-        ref: User
+        ref: 'User'
     }]
 }));
 
@@ -57,7 +55,7 @@ function validateFolder(folder) {
     const schema = Joi.object({
         title: Joi.string().min(1).required()
     });
-    return schema.validate(folder, { allowUnknown: true });
+    return schema.validate(folder, { allowUnknown: true, abortEarly: false });
 }
 
 exports.validate = validateFolder;

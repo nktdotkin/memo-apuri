@@ -49,10 +49,11 @@ router.post("/login", async (req, res, next) => {
                     expiresIn: "2h",
                 }
             );
-            res.status(200).json(existingUser);
+            res.status(200).json({ "x-access-token": existingUser.token });
+            return;
         }
 
-        res.status(400).send("Invalid login or password.");
+        res.status(400).json({ "error": "Invalid login or password." });
     } catch (err) {
         next(err);
     }

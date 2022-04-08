@@ -31,7 +31,7 @@ function validateUser(user) {
         email: Joi.string().min(3).required().email(),
         password: Joi.string().min(5).required()
     });
-    return schema.validate(user, { allowUnknown: true });
+    return schema.validate(user, { allowUnknown: true, abortEarly: false });
 }
 
 exports.validate = validateUser;

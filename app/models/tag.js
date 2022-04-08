@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const { User } = require('./user');
 const Schema = require('mongoose').Schema;
 
 const Tag = mongoose.model('Tag', new mongoose.Schema({
@@ -18,7 +17,7 @@ const Tag = mongoose.model('Tag', new mongoose.Schema({
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: User
+        ref: 'User'
     }
 }));
 
@@ -27,7 +26,7 @@ function validateTag(tag) {
         title: Joi.string().min(1).required(),
         color: Joi.string().min(6).max(6).required(),
     });
-    return schema.validate(tag, { allowUnknown: true });
+    return schema.validate(tag, { allowUnknown: true, abortEarly: false });
 }
 
 exports.validate = validateTag;
