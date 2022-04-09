@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("../config/database").connect();
+require("./database/database").connect();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require('cors');
@@ -18,7 +18,6 @@ app.use('/user', require("./routes/user_routes"));
 app.use('/note', require("./routes/note_routes"));
 app.use('/folder', require("./routes/folder_routes"));
 app.use('/tag', require("./routes/tag_routes"));
-app.use(require("./routes/page_routes"));
 app.use(errorLogger);
 app.use(errorResponder);
 app.use(errorSafeResponder);

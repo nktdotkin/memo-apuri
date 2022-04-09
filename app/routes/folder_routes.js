@@ -1,7 +1,7 @@
 const { Folder, validate } = require('../models/folder');
 const { User } = require("../models/user");
 const { Note } = require("../models/note");
-const { auth, router, user } = require("../services/route_helper");
+const { auth, router, user } = require("../helper/route_helper");
 
 router.get("/list", auth, async (req, res, next) => {
     try {
