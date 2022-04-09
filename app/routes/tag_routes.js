@@ -1,7 +1,7 @@
 const { Tag, validate } = require('../models/tag');
-const { auth, router, user } = require("../helper/route_helper");
+const { router, user } = require("../helper/route_helper");
 
-router.get("/list", auth, async (req, res, next) => {
+router.get("/list", async (req, res, next) => {
     try {
         res.status(200).json(await Tag.find({ createdBy: user.userId(req) }));
     } catch (err) {
@@ -9,7 +9,7 @@ router.get("/list", auth, async (req, res, next) => {
     }
 });
 
-router.post("/add", auth, async (req, res, next) => {
+router.post("/add", async (req, res, next) => {
     try {
         const { title, color } = req.body;
         const validation = validate(req.body);
@@ -38,7 +38,7 @@ router.post("/add", auth, async (req, res, next) => {
     }
 });
 
-router.post("/edit", auth, async (req, res, next) => {
+router.post("/edit", async (req, res, next) => {
     try {
         const { title, color } = req.body;
         const validation = validate(req.body);

@@ -1,9 +1,9 @@
 const { Note, validate } = require('../models/note');
 const { User } = require("../models/user");
 const { Folder } = require("../models/folder");
-const { auth, router, user } = require("../helper/route_helper");
+const { router, user } = require("../helper/route_helper");
 
-router.get("/list", auth, async (req, res, next) => {
+router.get("/list", async (req, res, next) => {
     try {
         const notes = await Note.find({ createdBy: user.userId(req) });
 
@@ -13,7 +13,7 @@ router.get("/list", auth, async (req, res, next) => {
     }
 });
 
-router.get("/list/:folderId", auth, async (req, res, next) => {
+router.get("/list/:folderId", async (req, res, next) => {
     try {
         const notes = await Note.find({
             createdBy: user.userId(req),
@@ -26,7 +26,7 @@ router.get("/list/:folderId", auth, async (req, res, next) => {
     }
 });
 
-router.post("/delete/:noteId", auth, async (req, res, next) => {
+router.post("/delete/:noteId", async (req, res, next) => {
     try {
         const note = await Note.deleteOne({
             createdBy: user.userId(req),
@@ -39,7 +39,7 @@ router.post("/delete/:noteId", auth, async (req, res, next) => {
     }
 });
 
-router.post("/save", auth, async (req, res, next) => {
+router.post("/save", async (req, res, next) => {
     try {
         const { title, body, folder } = req.body;
         const validation = validate(req.body);

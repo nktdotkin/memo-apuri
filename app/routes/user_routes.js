@@ -1,6 +1,6 @@
 const { User, validate } = require('../models/user');
 const bcrypt = require('bcryptjs');
-const { auth, router, user } = require("../helper/route_helper");
+const { router } = require("../helper/route_helper");
 const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res, next) => {
