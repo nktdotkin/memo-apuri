@@ -9,13 +9,13 @@ router.post("/register", async (req, res, next) => {
         const validation = validate(req.body);
 
         if (validation.error) {
-            return res.status(400).send(validation);
+            return res.status(200).send(validation);
         }
 
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
-            return res.status(409).send("User Already Exist.");
+            return res.status(200).json({ "error": "User Already Exist." });
         }
 
         const user = await User.create({
@@ -36,7 +36,7 @@ router.post("/login", async (req, res, next) => {
         const validation = validate(req.body);
 
         if (validation.error) {
-            return res.status(400).send(validation);
+            return res.status(200).send(validation);
         }
 
         const existingUser = await User.findOne({ email });
@@ -53,7 +53,7 @@ router.post("/login", async (req, res, next) => {
             return;
         }
 
-        res.status(400).json({ "error": "Invalid login or password." });
+        res.status(200).json({ "error": "Invalid login or password." });
     } catch (err) {
         next(err);
     }

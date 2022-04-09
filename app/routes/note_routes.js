@@ -45,7 +45,7 @@ router.post("/save", auth, async (req, res, next) => {
         const validation = validate(req.body);
 
         if (validation.error) {
-            return res.status(400).send(validation);
+            return res.status(200).send(validation);
         }
 
         const note = await Note.create({

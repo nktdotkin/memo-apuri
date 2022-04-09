@@ -218,15 +218,15 @@ body {
 }
 .button.login button.active span {
   opacity: 0;
-  transform: scale(0);
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
+  transform: scale(0);
 }
 .button.login button.active i.fa {
   opacity: 1;
-  transform: scale(1) rotate(0deg);
   -webkit-transform: scale(1) rotate(0deg);
   -ms-transform: scale(1) rotate(0deg);
+  transform: scale(1) rotate(0deg);
 }
 .button.login button i.fa {
   width: 100%;

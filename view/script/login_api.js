@@ -3,28 +3,13 @@ const loginForm = document.querySelector("#login");
 loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    await fetch('/user/login', {
-        method: 'POST',
-        body: new URLSearchParams(new FormData(loginForm))
-    })
-        .then(response => { return response.json(); })
-        .then(responseData => {
-            if (responseData.error) {
-                showAlert(responseData.error)
-            }
-            document.cookie = `x-access-token=${responseData['x-access-token']}`;
-        })
-        .catch(err => {
-            showAlert(err);
-        });
+    let loginData = await fetchData('/user/login', 'POST', 'json', new URLSearchParams(new FormData(loginForm)));
+    let token = loginData['x-access-token'];
 
-    await fetch('/index', {
-        method: 'GET'
-    }).then(response => {
-        window.open(response.url, "_self");
-    })
-        .catch(err => {
-            showAlert(err);
-        });
+    if (token) {
+        document.cookie = `x-access-token=${token}`;
+        let indexData = await fetchData('/index', 'GET');
+        window.open(indexData.url, "_self");
+    }
 });
 

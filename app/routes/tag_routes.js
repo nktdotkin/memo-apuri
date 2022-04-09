@@ -15,7 +15,7 @@ router.post("/add", auth, async (req, res, next) => {
         const validation = validate(req.body);
 
         if (validation.error) {
-            return res.status(400).send(validation);
+            return res.status(200).send(validation);
         }
 
         const isExist = await Tag.find({
@@ -24,7 +24,7 @@ router.post("/add", auth, async (req, res, next) => {
         });
 
         if (isExist)
-            res.status(200).send(`Tag with ${title} already exists.`);
+            res.status(200).json({ "error": `Tag with ${title} already exists.` });
 
         const tag = await Tag.create({
             title: title,
@@ -44,7 +44,7 @@ router.post("/edit", auth, async (req, res, next) => {
         const validation = validate(req.body);
 
         if (validation.error) {
-            return res.status(400).send(validation);
+            return res.status(200).send(validation);
         }
 
         await Tag.updateOne({ _id: req.query.tagId }, { $set: { "title": title, "color": color } })

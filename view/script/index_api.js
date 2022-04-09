@@ -3,14 +3,5 @@ window.onload = function (e) {
 }
 
 function listFolders() {
-    fetch('/folder/list', {
-        method: 'GET'
-    })
-        .then(response => { return response.json(); })
-        .then(responseData => {
-            showAlert(responseData);
-        })
-        .catch(err => {
-            showAlert(err);
-        });
+    const folders = await fetchData('/folder/list', 'GET');
 }
